@@ -60,21 +60,24 @@ while run:
         pipePos = 0
         pipes.append({"pipePos": 0, "rand": random.randint(300,500)})
     time += 10
-    
+
     for pipe in pipes:
         pygame.draw.rect(win, green, (winLength - pipe["pipePos"], 0, 75, pipe["rand"]-200))
         pygame.draw.rect(win, green, (winLength - pipe["pipePos"], pipe["rand"], 75, winWidth))
         pipe["pipePos"] += 2
         if pipe["pipePos"] == 450:
             score += 1
-    
+        if ((x > (winLength - pipe["pipePos"])) and (x < (winLength - pipe["pipePos"] + 75))):
+            if ((y < pipe["rand"] - 200) or (y > pipe["rand"])):
+                print("Hey yo")
+
     win.blit(bird, (x,y))
-    
+
     text = impactFont.render("Score: " + str(score), True, (255, 255, 255))
     #get rect dimensions of text for centering purposes
-    
+
     win.blit(text, (winLength /2 - text.get_rect().width/2, 50))
-    
+
     pygame.display.update()
 
 
