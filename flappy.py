@@ -18,13 +18,16 @@ win = pygame.display.set_mode((winLength, winWidth))
 pygame.display.set_caption("Flappy")
 skyblue = pygame.Color("#70c5ce")
 green = pygame.Color("#009600")
-
+impactFont = pygame.font.SysFont("impact", 20)
 bird = pygame.transform.scale(pygame.image.load('bird.png'), (50,50))
 
 x = 50
 y = 50
 accel = 1
 run = True
+score = 0
+pipes = []
+
 while run:
     pygame.time.delay(10);
 
@@ -55,15 +58,23 @@ while run:
         rand = random.randint(300,500)
         time = 0
         pipePos = 0
+        pipes.append({"pipePos": 0, "rand": random.randint(300,500)})
     time += 10
-
-    pygame.draw.rect(win, green, (winLength - pipePos, 0, 100, rand-200))
-    pygame.draw.rect(win, green, (winLength - pipePos, rand, 100, winWidth))
-
-    pipePos += 10
-
-
+    
+    for pipe in pipes:
+        pygame.draw.rect(win, green, (winLength - pipe["pipePos"], 0, 75, pipe["rand"]-200))
+        pygame.draw.rect(win, green, (winLength - pipe["pipePos"], pipe["rand"], 75, winWidth))
+        pipe["pipePos"] += 2
+        if pipe["pipePos"] == 450:
+            score += 1
+    
     win.blit(bird, (x,y))
+    
+    text = impactFont.render("Score: " + str(score), True, (255, 255, 255))
+    #get rect dimensions of text for centering purposes
+    
+    win.blit(text, (winLength /2 - text.get_rect().width/2, 50))
+    
     pygame.display.update()
 
 
