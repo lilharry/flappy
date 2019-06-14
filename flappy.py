@@ -67,9 +67,9 @@ while run:
         pipe["pipePos"] += 2
         if pipe["pipePos"] == 450:
             score += 1
-        if ((x > (winLength - pipe["pipePos"])) and (x < (winLength - pipe["pipePos"] + 75))):
-            if ((y < pipe["rand"] - 200) or (y > pipe["rand"])):
-                print("Hey yo")
+        if ((x + 40 > (winLength - pipe["pipePos"])) and (x < (winLength - pipe["pipePos"] + 75))):
+            if ((y + 10 < pipe["rand"] - 200) or (y + 20 > pipe["rand"])):
+                run = False
 
     win.blit(bird, (x,y))
 
@@ -79,6 +79,10 @@ while run:
     win.blit(text, (winLength /2 - text.get_rect().width/2, 50))
 
     pygame.display.update()
+
+
+
+
 
 
 pygame.quit()
